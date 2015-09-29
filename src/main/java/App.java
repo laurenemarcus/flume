@@ -8,13 +8,18 @@ import static spark.Spark.*;
 public class App {
   public static void main(String[] args) {
     staticFileLocation("/public");
+    String layout = "templates/layout.vtl";
 
     get("/", (request, response) -> {
-      return new ModelAndView(new HashMap(), "templates/landing.vtl");
+      HashMap model = new HashMap();
+      model.put("template", "templates/landing.vtl");
+      return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
     get("/pictures", (request, response) -> {
-      return new ModelAndView(new HashMap(), "templates/pictures.vtl");
+      HashMap model = new HashMap();
+      model.put("template", "templates/pictures.vtl");
+      return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
   }
 }
